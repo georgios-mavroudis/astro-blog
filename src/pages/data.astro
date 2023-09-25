@@ -1,0 +1,14 @@
+---
+import { $params } from '../db/store.ts'
+---
+<ul>
+    <h1>Params</h1>
+    {$params.value?.map(item => (
+        <li><h2>===============</h2></li>
+        <li><h2>{item.user_id}</h2></li>
+        <li><h2>{item.appli}</h2></li>
+        <li><h2>{item.start_date}</h2></li>
+        <li><h2>{item.end_date}</h2></li>
+        <li><h2>{item.user_uuid}</h2></li>
+    ))}
+</ul>

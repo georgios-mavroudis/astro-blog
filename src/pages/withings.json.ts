@@ -6,21 +6,25 @@ import type { APIRoute } from "astro";
 //       })
 //     )
 //   }
+import { $params, type WithingsParams } from '../db/store';
 
-export const POST: APIRoute = async ({ request, params, url }) => {
+export const POST: APIRoute = async ({ request, url }) => {
     const body = await request.text()
     if (body == null) {
       return new Response(JSON.stringify({ body: 404 }))
     }
     const urlParams = new URLSearchParams(body);
-    const some = { 
-        userid: urlParams.get('userid'),
-        appli: urlParams.get('appli'),
-        startdate: urlParams.get('startdate'),
-        enddate: urlParams.get('enddate'),
-        user_uuid: url.searchParams.get('user-uuid')
+
+    const some: WithingsParams = { 
+        user_id: parseInt(urlParams.get('userid') as string),
+        appli: parseInt(urlParams.get('appli') as string),
+        start_date: parseInt(urlParams.get('startdate') as string),
+        end_date: parseInt(urlParams.get('enddate') as string),
+        user_uuid: url.searchParams.get('user-uuid') as string
     }
-    
+    const updatedJson = [...($params.value ?? []), some];
+
+    $params.set(updatedJson)
     return new Response(
         JSON.stringify(some), {
           status: 200,
