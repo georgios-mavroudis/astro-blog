@@ -1,5 +1,34 @@
 ---
-import { $params } from '../db/store.ts'
+import type { APIRoute } from 'astro';
+import { type WithingsParams, $params } from '../db/store.ts'
+// const read = await fetch('http://localhost:4321/netlify/functions/withings').then(e => e.json()) as WithingsParams;
+// const params = await read.json() as WithingsParams;
+const post: APIRoute = async ({ request, url }) => {
+    const body = await request.text()
+    if (body == null) {
+      return new Response(JSON.stringify({ body: 404 }))
+    }
+    const urlParams = new URLSearchParams(body);
+
+    const some: WithingsParams = { 
+        user_id: parseInt(urlParams.get('userid') as string),
+        appli: parseInt(urlParams.get('appli') as string),
+        start_date: parseInt(urlParams.get('startdate') as string),
+        end_date: parseInt(urlParams.get('enddate') as string),
+        user_uuid: url.searchParams.get('user-uuid') as string
+    }
+    return await some
+    // return new Response(
+    //     JSON.stringify(some), {
+    //       status: 200,
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       }
+    //     }
+    //   );
+}
+const updatedParams = [...($params.value ?? []), await post];
+$params.set(updatedParams)
 ---
 <ul>
     <h1>Params</h1>

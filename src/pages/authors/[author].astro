@@ -1,0 +1,12 @@
+---
+import type { GetStaticPaths } from "astro";
+export const getStaticPaths = (() => {    
+    return [
+        { params: { author: 'Giorgos' }},
+        { params: { author: 'Hellen' }},
+        { params: { author: 'Joey' }},
+    ];
+}) satisfies GetStaticPaths;
+const { author }  = Astro.params
+---
+<h1>{author}</h1>

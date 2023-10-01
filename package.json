@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.0",
+    "@astrojs/netlify": "^3.0.1",
     "@astrojs/node": "^6.0.1",
+    "@netlify/functions": "^2.0.2",
     "astro": "^3.1.2",
-    "nanostores": "^0.9.3"
+    "nanostores": "^0.9.3",
+    "netlify-lambda": "^2.0.16"
   }
 }

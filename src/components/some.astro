@@ -1,0 +1,9 @@
+---
+// const response = await fetch('http://localhost:8000/')
+const response = await fetch('http://localhost:8000/sign_up')
+const data = await response.json();
+console.log("RESPONSE", data)
+---
+<h1>Data</h1>
+<h3>first name: { data['first_name'] }</h3>
+<h3>first name: { data['last_name'] }</h3>

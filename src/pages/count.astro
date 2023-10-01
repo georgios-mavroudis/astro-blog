@@ -1,0 +1,29 @@
+---
+const { message = 'Howdy' } = Astro.props
+---
+<astro-greet data-message={message}>
+    <span>{message}</span>
+    <button id="greet-btn">Say hi!</button>
+    <span id="count">0</span>
+</astro-greet>
+<script>
+    class AstroGreet extends HTMLElement {
+        constructor() {
+            super();
+            let count = 0;
+            // const message = this.dataset.message
+            const countText = this.querySelector('#count')
+            const button = this.querySelector('#greet-btn')
+            console.log(button)
+            button?.addEventListener('click', () => {
+                // alert(`New greeting ${message}`)
+                console.log('howdy', countText)
+                count++;
+                if (countText) {
+                    countText.textContent = count.toString();
+                }
+            })
+        }
+    } 
+    customElements.define('astro-greet', AstroGreet);
+</script>

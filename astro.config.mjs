@@ -1,13 +1,17 @@
 import { defineConfig } from 'astro/config';
 import mdx from "@astrojs/mdx";
-
 import node from "@astrojs/node";
+
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx()],
-  adapter: node({
-    mode: "middleware"
+  adapter: netlify({
+    edgeMiddleware: true,
   }),
-  output: 'hybrid',
+  redirects: {
+    '/old-page': '/about'
+  },
+  output: 'hybrid'
 });
